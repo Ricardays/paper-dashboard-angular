@@ -1,18 +1,17 @@
 import { Component, OnInit } from '@angular/core';
-import {TableData} from "../../shared/interfaces/tableData";
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {environment} from "../../../environments/environment";
 import {catchError, Observable, take} from "rxjs";
 
 @Component({
-  selector: 'app-medic',
-  templateUrl: './medic.component.html',
-  styleUrls: ['./medic.component.scss']
+  selector: 'app-patient',
+  templateUrl: './patient.component.html',
+  styleUrls: ['./patient.component.scss']
 })
-export class MedicComponent implements OnInit {
+export class PatientComponent implements OnInit {
 
   protected headers: HttpHeaders;
-  medics : Array<any>;
+  patients : Array<any>;
 
   env = environment;
 
@@ -25,16 +24,16 @@ export class MedicComponent implements OnInit {
   }
 
   load(): void {
-    this.httpClient.get(this.env.urlApi + '/medic', {headers: this.headers})
+    this.httpClient.get(this.env.urlApi + '/patient', {headers: this.headers})
       .pipe(
         take(1),
         catchError(err => this.handleErr(err))
       ).subscribe(
-        (resp) => {
-          console.log(resp);
-          this.medics = resp;
-        }
-      )
+      (resp) => {
+        console.log(resp);
+        this.patients = resp;
+      }
+    )
   }
 
   protected handleErr(err): Observable<any> {
