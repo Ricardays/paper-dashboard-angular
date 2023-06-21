@@ -1,0 +1,49 @@
+<div class="row">
+  <div class="col-md-12">
+    <div class="card card-plain">
+      <div class="card-header">
+        <h4 class="card-title"> Medicos</h4>
+      </div>
+      <div class="card-body">
+        <div class="table-responsive">
+          <table class="table">
+            <thead class=" text-primary">
+            <th>
+              Nombre
+            </th>
+            <th>
+              Apellido
+            </th>
+            <th>
+              Especialidad
+            </th>
+            <th >
+              Email
+            </th>
+            </thead>
+            <tbody>
+            <tr
+              *ngFor="let medic of medics; let i = index">
+<!--              [class]="i === selectedRow ? 'active' : ''"-->
+<!--              [class.hover]="hasActionSelectRow"-->
+<!--              (click)="actionSelectRow(i)"-->
+              <td>
+                {{medic.nombre}}
+              </td>
+              <td>
+                {{medic.apellido}}
+              </td>
+              <td>
+                {{medic.especialidad}}
+              </td>
+              <td>
+                {{medic.email}}
+              </td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
