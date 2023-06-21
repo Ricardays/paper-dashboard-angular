@@ -1,0 +1,67 @@
+<div class="row">
+  <div class="col-md-12">
+    <div class="card card-plain">
+      <div class="card-header">
+        <h4 class="card-title"> Citas</h4>
+      </div>
+      <div class="card-body">
+        <div class="table-responsive">
+          <table class="table">
+            <thead class=" text-primary">
+            <th>
+              Fecha
+            </th>
+            <th>
+              Hora
+            </th>
+            <th>
+              Status
+            </th>
+            <th >
+              Medico
+            </th>
+            <th>
+              Paciente
+            </th>
+            <th>
+              Correo
+            </th>
+            <th>
+              Telefono
+            </th>
+            </thead>
+            <tbody>
+            <tr
+              *ngFor="let appointment of appointments; let i = index">
+              <!--              [class]="i === selectedRow ? 'active' : ''"-->
+              <!--              [class.hover]="hasActionSelectRow"-->
+              <!--              (click)="actionSelectRow(i)"-->
+              <td>
+                {{appointment.fechaCita | date: 'dd-MM-yyyy'}}
+              </td>
+              <td>
+                {{appointment.fechaCita | date: 'HH:mm'}}
+              </td>
+              <td>
+                {{appointment.estatus}}
+              </td>
+              <td>
+                {{appointment.medico.nombre}} {{appointment.medico.apellido}}
+              </td>
+              <td>
+                {{appointment.paciente.nombre}} {{appointment.paciente.apellido}}
+              </td>
+              <td>
+                {{appointment.paciente.correo}}
+              </td>
+              <td>
+                {{appointment.paciente.telefono}}
+              </td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

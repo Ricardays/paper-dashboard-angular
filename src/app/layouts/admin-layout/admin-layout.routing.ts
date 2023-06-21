@@ -9,11 +9,13 @@ import { NotificationsComponent } from '../../pages/notifications/notifications.
 import { UpgradeComponent } from '../../pages/upgrade/upgrade.component';
 import {MedicComponent} from "../../pages/medic/medic.component";
 import {PatientComponent} from "../../pages/patient/patient.component";
+import {AppointmentComponent} from "../../pages/appointment/appointment.component";
 
 export const AdminLayoutRoutes: Routes = [
     { path: 'dashboard',      component: DashboardComponent },
+    { path: 'appointment',    component: AppointmentComponent },
     { path: 'medic',          component: MedicComponent },
-    { path: 'patient',          component: PatientComponent },
+    { path: 'patient',        component: PatientComponent },
     { path: 'user',           component: UserComponent },
     { path: 'table',          component: TableComponent },
     { path: 'typography',     component: TypographyComponent },

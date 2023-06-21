@@ -16,6 +16,7 @@ import { UpgradeComponent }         from '../../pages/upgrade/upgrade.component'
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import {MedicComponent} from "../../pages/medic/medic.component";
 import {PatientComponent} from "../../pages/patient/patient.component";
+import {AppointmentComponent} from "../../pages/appointment/appointment.component";
 
 @NgModule({
   imports: [
@@ -34,6 +35,7 @@ import {PatientComponent} from "../../pages/patient/patient.component";
     NotificationsComponent,
     MedicComponent,
     PatientComponent,
+    AppointmentComponent,
   ]
 })
 
