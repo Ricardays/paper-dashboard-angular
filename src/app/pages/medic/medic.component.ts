@@ -3,6 +3,7 @@ import {TableData} from "../../shared/interfaces/tableData";
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {environment} from "../../../environments/environment";
 import {catchError, Observable, take} from "rxjs";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-medic',
@@ -17,7 +18,8 @@ export class MedicComponent implements OnInit {
   env = environment;
 
 
-  constructor(protected httpClient: HttpClient,) { }
+  constructor(protected httpClient: HttpClient,
+              private router: Router,) { }
 
   ngOnInit(): void {
 
@@ -40,6 +42,10 @@ export class MedicComponent implements OnInit {
   protected handleErr(err): Observable<any> {
     console.error('API Error:', err);
     throw err;
+  }
+
+  redirectAdd(){
+    this.router.navigate(['/medic/add'])
   }
 
 }

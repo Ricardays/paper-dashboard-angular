@@ -11,12 +11,14 @@ import {MedicComponent} from "../../pages/medic/medic.component";
 import {PatientComponent} from "../../pages/patient/patient.component";
 import {AppointmentComponent} from "../../pages/appointment/appointment.component";
 import {AddAppointmentComponent} from "../../pages/appointment/add/add-appointment.component";
+import {AddMedicComponent} from "../../pages/medic/add/add-medic.component";
 
 export const AdminLayoutRoutes: Routes = [
     { path: 'dashboard',      component: DashboardComponent },
     { path: 'appointment',    component: AppointmentComponent },
     { path: 'appointment/add',    component: AddAppointmentComponent },
     { path: 'medic',          component: MedicComponent },
+    { path: 'medic/add',          component: AddMedicComponent },
     { path: 'patient',        component: PatientComponent },
     { path: 'user',           component: UserComponent },
     { path: 'table',          component: TableComponent },

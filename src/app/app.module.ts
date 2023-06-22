@@ -17,6 +17,7 @@ import {DatePipe} from "@angular/common";
 import { AddAppointmentComponent } from './pages/appointment/add/add-appointment.component';
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import { NgSelectModule } from '@ng-select/ng-select';
+import { AddMedicComponent } from './pages/medic/add/add-medic.component';
 
 
 
@@ -24,7 +25,6 @@ import { NgSelectModule } from '@ng-select/ng-select';
   declarations: [
     AppComponent,
     AdminLayoutComponent,
-    AddAppointmentComponent,
   ],
   imports: [
     BrowserAnimationsModule,

@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
 import { AdminLayoutRoutes } from './admin-layout.routing';
 
@@ -17,13 +17,19 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import {MedicComponent} from "../../pages/medic/medic.component";
 import {PatientComponent} from "../../pages/patient/patient.component";
 import {AppointmentComponent} from "../../pages/appointment/appointment.component";
+import {AddAppointmentComponent} from "../../pages/appointment/add/add-appointment.component";
+import {AddMedicComponent} from "../../pages/medic/add/add-medic.component";
+import {NgSelectModule} from "@ng-select/ng-select";
 
 @NgModule({
   imports: [
     CommonModule,
     RouterModule.forChild(AdminLayoutRoutes),
     FormsModule,
-    NgbModule
+    NgbModule,
+    FormsModule,
+    ReactiveFormsModule,
+    NgSelectModule,
   ],
   declarations: [
     DashboardComponent,
@@ -36,6 +42,8 @@ import {AppointmentComponent} from "../../pages/appointment/appointment.componen
     MedicComponent,
     PatientComponent,
     AppointmentComponent,
+    AddAppointmentComponent,
+    AddMedicComponent,
   ]
 })
 
