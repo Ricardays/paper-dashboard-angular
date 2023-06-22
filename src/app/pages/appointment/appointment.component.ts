@@ -47,5 +47,8 @@ export class AppointmentComponent implements OnInit {
     this.router.navigate(['/appointment/add'])
   }
 
+  redirectEdit(idCita){
+    this.router.navigate(['/appointment/add'], {queryParams: {id: idCita}})
+  }
 
 }

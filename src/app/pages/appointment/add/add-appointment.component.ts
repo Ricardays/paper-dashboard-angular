@@ -4,7 +4,7 @@ import {catchError, Observable, take} from "rxjs";
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {environment} from "../../../../environments/environment";
 import {ToastrService} from "ngx-toastr";
-import {Router} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 
 
 @Component({
@@ -19,8 +19,18 @@ export class AddAppointmentComponent implements OnInit {
   submitted: boolean = false;
   patients: Array<any> = [];
   medics: Array<any> = [];
+  statuses: Array<any> = [
+    'Pendiente',
+    'Confirmado',
+    'Completado',
+    'Cancelado'
+  ]
   selectedMedic = {};
   selectedPatient = {};
+  selectedStatus = {};
+  selectedAppointment = {};
+
+  selectedId;
 
 
   appointmentForm = new FormGroup({
@@ -28,35 +38,54 @@ export class AddAppointmentComponent implements OnInit {
     hour: new FormControl(null, [Validators.required]),
     patient: new FormControl(''),
     medic: new FormControl(''),
+    status: new FormControl(''),
   });
 
   constructor(protected httpClient: HttpClient,
               private toastr: ToastrService,
-              private router: Router) { }
+              private router: Router,
+              private route: ActivatedRoute,) { }
 
   ngOnInit(): void {
 
-    this.httpClient.get(this.env.urlApi + '/patient', {headers: this.headers})
-      .pipe(
-        take(1),
-        catchError(err => this.handleErr(err))
-      ).subscribe(
-      (resp) => {
-        console.log(resp);
-        this.patients = resp;
-      }
-    )
+    this.route.queryParams.subscribe(params => {
 
-    this.httpClient.get(this.env.urlApi + '/medic', {headers: this.headers})
-      .pipe(
-        take(1),
-        catchError(err => this.handleErr(err))
-      ).subscribe(
-      (resp) => {
-        console.log(resp);
-        this.medics = resp;
+      this.selectedId = params.id;
+      this.httpClient.get(this.env.urlApi + '/patient', {headers: this.headers})
+        .pipe(
+          take(1),
+          catchError(err => this.handleErr(err))
+        ).subscribe(
+        (resp) => {
+          console.log(resp);
+          this.patients = resp;
+        }
+      )
+
+      this.httpClient.get(this.env.urlApi + '/medic', {headers: this.headers})
+        .pipe(
+          take(1),
+          catchError(err => this.handleErr(err))
+        ).subscribe(
+        (resp) => {
+          console.log(resp);
+          this.medics = resp;
+        }
+      )
+      if(this.selectedId){
+        this.httpClient.get(this.env.urlApi + '/appointment/findOne?id=' + this.selectedId, {headers: this.headers})
+          .pipe(
+            take(1),
+            catchError(err => this.handleErr(err))
+          ).subscribe(
+          (resp) => {
+            console.log(resp);
+            this.selectedAppointment = resp;
+            this.setValuesForm(resp);
+          }
+        )
       }
-    )
+    })
   }
 
   submit():void {
@@ -64,13 +93,14 @@ export class AddAppointmentComponent implements OnInit {
 
     // Check if form is valid
     if (this.appointmentForm.valid) {
-      if (true) {
+      if (!this.selectedId) {
         // Case new
         console.log(this.appointmentForm.value)
         let body = {
           medico: this.appointmentForm.value.medic,
           paciente: this.appointmentForm.value.patient,
-          fechaCita: this.appointmentForm.value.date + 'T' + this.appointmentForm.value.hour + ':00'
+          fechaCita: this.appointmentForm.value.date + 'T' + this.appointmentForm.value.hour + ':00',
+          estatus: this.appointmentForm.value.status,
         }
         console.log(body);
         this.httpClient.post(this.env.urlApi + '/appointment', body, {headers: this.headers})
@@ -97,20 +127,35 @@ export class AddAppointmentComponent implements OnInit {
       } else {
         // Edit
 
-        // let value = this.netplanForm.value;
-        //
-        // value.bwUp = value.bwUp.toString() + 'mbit';
-        // value.bwDwn = value.bwDwn.toString() + 'mbit';
-        // value.ceilUp = value.ceilUp.toString() + 'mbit';
-        // value.ceilDwn = value.ceilDwn.toString() + 'mbit';
-        //
-        // this.netplanService.update(value).subscribe((res) => {
-        //   // Update list
-        //   this.list();
-        //
-        //   // Close aside
-        //   this.actionAside();
-        // });
+        console.log(this.appointmentForm.value)
+        let body = {
+          idCita: this.selectedId,
+          medico: this.appointmentForm.value.medic,
+          paciente: this.appointmentForm.value.patient,
+          fechaCita: this.appointmentForm.value.date + 'T' + this.appointmentForm.value.hour + ':00',
+          estatus: this.appointmentForm.value.status,
+        }
+
+        this.httpClient.post(this.env.urlApi + '/appointment', body, {headers: this.headers})
+          .pipe(
+            take(1),
+            catchError(err => this.handleErr(err))
+          ).subscribe((resp) => {
+          console.log(resp);
+          this.toastr.success(
+            '<span data-notify="icon" class="nc-icon nc-satisfied"></span><span data-notify="message">Cita editada Satisfactoriamente</span>',
+            "",
+            {
+              timeOut: 4000,
+              closeButton: true,
+              enableHtml: true,
+              toastClass: "alert alert-success alert-with-icon",
+              positionClass: "toast-top-right"
+            }
+          );
+          this.router.navigate(['/appointment']);
+
+        });
       }
     }
 
@@ -137,8 +182,25 @@ export class AddAppointmentComponent implements OnInit {
     this.selectedPatient = e;
   }
 
+  changeStatus(e: any) {
+    this.appointmentForm.get('status')?.setValue(e, {
+      onlySelf: true,
+    });
+
+    this.selectedStatus = e;
+  }
+
   redirectList(){
     this.router.navigate(['/appointment'])
+  }
+
+  setValuesForm(resp: any) {
+    this.appointmentForm.get('date')?.setValue(resp.fechaCita.substring(0,resp.fechaCita.indexOf('T')));
+    this.appointmentForm.get('hour')?.setValue(resp.fechaCita.substring(resp.fechaCita.indexOf('T')+1,resp.fechaCita.length-3));
+    this.appointmentForm.get('patient')?.setValue(this.patients.find(x => x.idPaciente == resp.paciente.idPaciente));
+    this.appointmentForm.get('medic')?.setValue(this.medics.find(x=> x.idMedico == resp.medico.idMedico));
+    this.appointmentForm.get('status')?.setValue(resp.estatus);
+
   }
 
 }

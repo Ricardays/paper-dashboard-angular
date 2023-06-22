@@ -12,6 +12,9 @@
           <table class="table">
             <thead class=" text-primary">
             <th>
+              Edit
+            </th>
+            <th>
               Fecha
             </th>
             <th>
@@ -39,6 +42,9 @@
               <!--              [class]="i === selectedRow ? 'active' : ''"-->
               <!--              [class.hover]="hasActionSelectRow"-->
               <!--              (click)="actionSelectRow(i)"-->
+              <td (click)="redirectEdit(appointment.idCita)" class="table-edit">
+                <i class="nc-icon nc-settings"></i>
+              </td>
               <td>
                 {{appointment?.fechaCita | date: 'dd-MM-yyyy'}}
               </td>
