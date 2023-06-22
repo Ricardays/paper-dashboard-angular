@@ -1,0 +1,101 @@
+<div class="col-md-12">
+  <div class="card card-user">
+    <div class="card-header">
+      <h5 class="card-title">Crear Cita</h5>
+    </div>
+    <div class="card-body">
+      <form
+        [formGroup]="appointmentForm"
+        (ngSubmit)="submit()"
+      >
+        <div class="row">
+          <div class="col-md-4 pr-1">
+            <div class="form-group">
+              <label >Fecha</label>
+              <input
+                type="date"
+                formControlName="date"
+                class="form-control"
+                [class]="
+                        submitted && appointmentForm.get('date').invalid
+                          ? 'errorField'
+                          : ''
+                      "
+              />
+            </div>
+          </div>
+          <div class="col-md-4 pr-1">
+            <div class="form-group">
+              <label>Hora</label>
+              <input
+                type="time"
+                formControlName="hour"
+                class="form-control"
+                [class]="
+                        submitted && appointmentForm.get('hour').invalid
+                          ? 'errorField'
+                          : ''
+                      "
+              />
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-4 pr-1">
+            <div
+              class="form-group"
+              [class]="
+                  submitted && appointmentForm.get('patient').invalid
+                    ? 'errorField'
+                    : ''
+                "
+            >
+              <label>Paciente
+                <select #patientSelect
+                  class="custom-select mb-3"
+                  (ngModelChange)="changePatient($event)"
+                  (ngModel)="patients"
+                  formControlName="patient"
+                >
+                  <option selected value="">Selecciona un Paciente</option>
+                  <option *ngFor="let patient of patients" [ngValue]="patient">
+                    {{ patient.nombre }} {{patient.apellido}} - {{patient.correo}}
+                  </option>
+                </select>
+              </label>
+            </div>
+          </div>
+          <div class="col-md-4 pr-1">
+            <div
+              class="form-group"
+              [class]="
+                  submitted && appointmentForm.get('medic').invalid
+                    ? 'errorField'
+                    : ''
+                "
+            >
+              <label>Medico
+                <select #medicSelect
+                  class="custom-select mb-3"
+                  (ngModelChange)="changeMedic($event)"
+                  (ngModel)="medics"
+                  formControlName="medic"
+                >
+                  <option selected value="">Selecciona un Médico</option>
+                  <option *ngFor="let medic of medics" [ngValue]="medic">
+                    {{ medic.nombre }} {{medic.apellido}}
+                  </option>
+                </select>
+              </label>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="update ml-auto mr-auto">
+            <button type="submit" class="btn btn-primary btn-round">Crear</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

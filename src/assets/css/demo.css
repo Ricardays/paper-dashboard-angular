@@ -74,6 +74,12 @@
   }
 }
 
+@media all and (min-width: 992px) {
+  .sidebar .nav>li.hidden {
+    display: none;
+  }
+}
+
 .card.card-upgrade .card-category {
   max-width: 530px;
   margin: 0 auto;

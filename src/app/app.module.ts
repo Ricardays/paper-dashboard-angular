@@ -14,12 +14,17 @@ import { AppRoutes } from './app.routing';
 import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
 import {HttpClientModule} from "@angular/common/http";
 import {DatePipe} from "@angular/common";
+import { AddAppointmentComponent } from './pages/appointment/add/add-appointment.component';
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
+import { NgSelectModule } from '@ng-select/ng-select';
+
 
 
 @NgModule({
   declarations: [
     AppComponent,
     AdminLayoutComponent,
+    AddAppointmentComponent,
   ],
   imports: [
     BrowserAnimationsModule,
@@ -32,6 +37,9 @@ import {DatePipe} from "@angular/common";
     FooterModule,
     FixedPluginModule,
     HttpClientModule,
+    FormsModule,
+    ReactiveFormsModule,
+    NgSelectModule,
   ],
   providers: [DatePipe,],
   bootstrap: [AppComponent]
