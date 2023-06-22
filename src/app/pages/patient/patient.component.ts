@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {environment} from "../../../environments/environment";
 import {catchError, Observable, take} from "rxjs";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-patient',
@@ -16,7 +17,8 @@ export class PatientComponent implements OnInit {
   env = environment;
 
 
-  constructor(protected httpClient: HttpClient,) { }
+  constructor(protected httpClient: HttpClient,
+              private router: Router,) { }
 
   ngOnInit(): void {
 
@@ -41,4 +43,7 @@ export class PatientComponent implements OnInit {
     throw err;
   }
 
+  redirectAdd(){
+    this.router.navigate(['/patient/add'])
+  }
 }

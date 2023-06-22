@@ -20,6 +20,7 @@ import {AppointmentComponent} from "../../pages/appointment/appointment.componen
 import {AddAppointmentComponent} from "../../pages/appointment/add/add-appointment.component";
 import {AddMedicComponent} from "../../pages/medic/add/add-medic.component";
 import {NgSelectModule} from "@ng-select/ng-select";
+import {AddPatientComponent} from "../../pages/patient/add/add-patient.component";
 
 @NgModule({
   imports: [
@@ -44,6 +45,7 @@ import {NgSelectModule} from "@ng-select/ng-select";
     AppointmentComponent,
     AddAppointmentComponent,
     AddMedicComponent,
+    AddPatientComponent,
   ]
 })
 

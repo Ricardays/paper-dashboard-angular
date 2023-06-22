@@ -18,6 +18,7 @@ import { AddAppointmentComponent } from './pages/appointment/add/add-appointment
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import { NgSelectModule } from '@ng-select/ng-select';
 import { AddMedicComponent } from './pages/medic/add/add-medic.component';
+import { AddPatientComponent } from './pages/patient/add/add-patient.component';
 
 
 
