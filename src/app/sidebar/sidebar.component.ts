@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import {HttpClient} from "@angular/common/http";
+import {Router} from "@angular/router";
 
 
 export interface RouteInfo {
@@ -16,12 +18,6 @@ export const ROUTES: RouteInfo[] = [
     { path: '/medic/add',         title: 'Medico',           icon:'nc-badge',        class: 'hidden' },
     { path: '/patient',       title: 'Pacientes',         icon:'nc-single-02',    class: '' },
     { path: '/patient/add',       title: 'Pacientes',         icon:'nc-single-02',    class: 'hidden' },
-    { path: '/icons',         title: 'Icons',             icon:'nc-diamond',      class: '' },
-    { path: '/notifications', title: 'Notifications',     icon:'nc-bell-55',      class: '' },
-    { path: '/user',          title: 'User Profile',      icon:'nc-single-02',    class: '' },
-    { path: '/table',         title: 'Table List',        icon:'nc-tile-56',      class: '' },
-    { path: '/typography',    title: 'Typography',        icon:'nc-caps-small',   class: '' },
-    { path: '/upgrade',       title: 'Upgrade to PRO',    icon:'nc-spaceship',    class: 'active-pro' },
 ];
 
 @Component({
@@ -34,5 +30,11 @@ export class SidebarComponent implements OnInit {
     public menuItems: any[];
     ngOnInit() {
         this.menuItems = ROUTES.filter(menuItem => menuItem);
+    }
+
+    constructor(private router: Router,) { }
+
+    redirectDashboard(){
+      this.router.navigate(['/dashboard'])
     }
 }
