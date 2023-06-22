@@ -3,6 +3,8 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import {catchError, Observable, take} from "rxjs";
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {environment} from "../../../../environments/environment";
+import {ToastrService} from "ngx-toastr";
+import {Router} from "@angular/router";
 
 
 @Component({
@@ -28,7 +30,9 @@ export class AddAppointmentComponent implements OnInit {
     medic: new FormControl(''),
   });
 
-  constructor(protected httpClient: HttpClient,) { }
+  constructor(protected httpClient: HttpClient,
+              private toastr: ToastrService,
+              private router: Router) { }
 
   ngOnInit(): void {
 
@@ -64,9 +68,9 @@ export class AddAppointmentComponent implements OnInit {
         // Case new
         console.log(this.appointmentForm.value)
         let body = {
-          medic: this.appointmentForm.value.medic,
-          patient: this.appointmentForm.value.patient,
-          date: this.appointmentForm.value.date + 'T' + this.appointmentForm.value.hour + ':00',
+          medico: this.appointmentForm.value.medic,
+          paciente: this.appointmentForm.value.patient,
+          fechaCita: this.appointmentForm.value.date + 'T' + this.appointmentForm.value.hour + ':00'
         }
         console.log(body);
         this.httpClient.post(this.env.urlApi + '/appointment', body, {headers: this.headers})
@@ -75,6 +79,19 @@ export class AddAppointmentComponent implements OnInit {
             catchError(err => this.handleErr(err))
           ).subscribe((resp) => {
             console.log(resp);
+            this.toastr.success(
+              '<span data-notify="icon" class="nc-icon nc-satisfied"></span><span data-notify="message">Cita creada Satisfactoriamente</span>',
+              "",
+              {
+                timeOut: 4000,
+                closeButton: true,
+                enableHtml: true,
+                toastClass: "alert alert-success alert-with-icon",
+                positionClass: "toast-top-right"
+              }
+            );
+            this.router.navigate(['/appointment']);
+
         });
 
       } else {
