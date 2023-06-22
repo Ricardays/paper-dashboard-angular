@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {environment} from "../../../environments/environment";
 import {catchError, Observable, take} from "rxjs";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-appointment',
@@ -16,7 +17,8 @@ export class AppointmentComponent implements OnInit {
   env = environment;
 
 
-  constructor(protected httpClient: HttpClient,) { }
+  constructor(protected httpClient: HttpClient,
+              private router: Router,) { }
 
   ngOnInit(): void {
 
@@ -39,6 +41,10 @@ export class AppointmentComponent implements OnInit {
   protected handleErr(err): Observable<any> {
     console.error('API Error:', err);
     throw err;
+  }
+
+  redirectAdd(){
+    this.router.navigate(['/appointment/add'])
   }
 
 

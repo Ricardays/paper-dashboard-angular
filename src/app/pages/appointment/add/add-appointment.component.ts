@@ -137,4 +137,8 @@ export class AddAppointmentComponent implements OnInit {
     this.selectedPatient = e;
   }
 
+  redirectList(){
+    this.router.navigate(['/appointment'])
+  }
+
 }
